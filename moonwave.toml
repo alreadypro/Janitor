@@ -20,7 +20,7 @@ enabled = true
 includeReadme = false
 
 [[home.features]]
-title = "Custom cleanup methods"
+title = "Custom CleanUp methods"
 description = "Other garbage collection implementations such as Maid don't give you a choice with how you clean up objects. You can either give a function, a connection, an Instance, or a table with a Destroy method. Janitor allows you to specify how you clean up objects, so you can cancel a Tween when the Janitor is cleaned up."
 
 [[home.features]]
@@ -29,7 +29,7 @@ description = "Janitor supports adding Promises to it natively, which will then 
 
 [[home.features]]
 title = "Instances linking"
-description = "Janitor's LinkToInstance method allows you to cleanup the Janitor when a linked Instance is destroyed. This allows you to execute behavior on destruction as well as cleanup objects quickly."
+description = "Janitor's LinkToInstance method allows you to CleanUp the Janitor when a linked Instance is destroyed. This allows you to execute behavior on destruction as well as CleanUp objects quickly."
 
 # [[home.features]]
 # title = "Made with Luau in mind"

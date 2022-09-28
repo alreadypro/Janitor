@@ -48,19 +48,19 @@ return function()
 
 	function BasicClass.new()
 		return setmetatable({
-			CleanupFunction = nil;
+			CleanUpFunction = nil;
 		}, BasicClass)
 	end
 
-	function BasicClass:AddCleanupFunction(Function)
-		self.CleanupFunction = Function
+	function BasicClass:AddCleanUpFunction(Function)
+		self.CleanUpFunction = Function
 		return self
 	end
 
 	function BasicClass:Destroy()
-		local CleanupFunction = self.CleanupFunction
-		if CleanupFunction then
-			CleanupFunction()
+		local CleanUpFunction = self.CleanUpFunction
+		if CleanUpFunction then
+			CleanUpFunction()
 		end
 
 		table.clear(self)
@@ -160,7 +160,7 @@ return function()
 				JanitorWasDestroyed = true
 			end, true)
 
-			NewJanitor:Add(BasicClass.new(), "Destroy"):AddCleanupFunction(function()
+			NewJanitor:Add(BasicClass.new(), "Destroy"):AddCleanUpFunction(function()
 				BasicClassWasDestroyed = true
 			end)
 
@@ -359,7 +359,7 @@ return function()
 		end)
 	end)
 
-	describe("Cleanup", function()
+	describe("CleanUp", function()
 		it("should cleanup everything", function()
 			local NewJanitor = Janitor.new()
 			local TotalRemoved = 0
@@ -371,7 +371,7 @@ return function()
 				end, true)
 			end
 
-			NewJanitor:Cleanup()
+			NewJanitor:CleanUp()
 			expect(TotalRemoved).to.equal(FunctionsToAdd)
 
 			for _ = 1, FunctionsToAdd do
@@ -380,7 +380,7 @@ return function()
 				end, true)
 			end
 
-			NewJanitor:Cleanup()
+			NewJanitor:CleanUp()
 			expect(TotalRemoved).to.equal(FunctionsToAdd * 2)
 		end)
 
@@ -407,7 +407,7 @@ return function()
 			end
 
 			task.spawn(function()
-				NewJanitor:Cleanup()
+				NewJanitor:CleanUp()
 			end)
 
 			task.wait()

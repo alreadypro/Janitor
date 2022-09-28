@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.4.2 - 2022-09-28
+
+## Changed
+
+- `Cleanup` has been renamed to `CleanUp` in order to be grammatically correct
+
 ## 1.4.1 - 2022-03-17
 
 ### Added
@@ -72,7 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Urgent fix for the cleanup loop. I had forgotten the `continue` so it would've likely broken.
 
-## 1.13.11 - 
+## 1.13.11 -
 
 - This version has been scrubbed from GitHub releases for a reason.
 
@@ -117,6 +123,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `Janitor:LinkToInstance` now works on deferred event mode. Shoutout to @Elttob for fixing it.
 
-## 1.0.0 - 
+## 1.0.0 -
 
 - Initial release.

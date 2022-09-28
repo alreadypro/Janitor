@@ -14,7 +14,7 @@ Janitor makes dealing with garbage collection much less annoying and stressful b
 
 `Janitor:Add()` returns the first object passed, which Maid does not.
 
-### Custom Cleanup Methods
+### Custom CleanUp Methods
 
 With Maid, you can't tell it to do anything other than `:Destroy()`, `:Disconnect()`, or call something. Janitor allows any method you choose to be called for cleanup. This includes `Tween:Stop()`, `Humanoid:BreakJoints()`, or `Tool:Deactivate()`. You can see this being used in the `Janitor:AddPromise()` method.
 

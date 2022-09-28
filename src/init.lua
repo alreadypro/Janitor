@@ -4,7 +4,7 @@
 -- Modifications by pobammer
 -- roblox-ts support by OverHash and Validark
 -- LinkToInstance fixed by Elttob.
--- Cleanup edge cases fixed by codesenseAye.
+-- CleanUp edge cases fixed by codesenseAye.
 
 local GetPromiseLibrary = require(script.GetPromiseLibrary)
 local RbxScriptConnection = require(script.RbxScriptConnection)
@@ -89,7 +89,7 @@ type StringOrTrue = string | boolean
 	local Obliterator = Janitor.new()
 	local Part = Workspace.Part
 
-	-- Queue the Part to be Destroyed at Cleanup time
+	-- Queue the Part to be Destroyed at CleanUp time
 	Obliterator:Add(Part, "Destroy")
 
 	-- Queue function to be called with `true` MethodName
@@ -120,7 +120,7 @@ type StringOrTrue = string | boolean
 	const Obliterator = new Janitor<{ CurrentTween: Tween }>();
 	const Part = Workspace.FindFirstChild("Part") as Part;
 
-	// Queue the Part to be Destroyed at Cleanup time
+	// Queue the Part to be Destroyed at CleanUp time
 	Obliterator.Add(Part, "Destroy");
 
 	// Queue function to be called with `true` MethodName
@@ -186,7 +186,7 @@ end
 	local Obliterator = Janitor.new()
 	Obliterator:AddPromise(Promise.delay(3)):andThenCall(print, "Finished!"):catch(warn)
 	task.wait(1)
-	Obliterator:Cleanup()
+	Obliterator:CleanUp()
 	```
 
 	### TypeScript:
@@ -197,7 +197,7 @@ end
 	const Obliterator = new Janitor();
 	Obliterator.AddPromise(Promise.delay(3)).andThenCall(print, "Finished!").catch(warn);
 	task.wait(1);
-	Obliterator.Cleanup();
+	Obliterator.CleanUp();
 	```
 
 	@param PromiseObject Promise -- The promise you want to add to the Janitor.
@@ -416,17 +416,17 @@ end
 	### Luau:
 
 	```lua
-	Obliterator:Cleanup() -- Valid.
+	Obliterator:CleanUp() -- Valid.
 	Obliterator() -- Also valid.
 	```
 
 	### TypeScript:
 
 	```ts
-	Obliterator.Cleanup()
+	Obliterator.CleanUp()
 	```
 ]=]
-function Janitor:Cleanup()
+function Janitor:CleanUp()
 	if not self.CurrentlyCleaning then
 		self.CurrentlyCleaning = nil
 
@@ -462,22 +462,23 @@ function Janitor:Cleanup()
 end
 
 --[=[
-	Calls [Janitor.Cleanup](#Cleanup) and renders the Janitor unusable.
+	Calls [Janitor.CleanUp](#CleanUp) and renders the Janitor unusable.
 
 	:::warning
 	Running this will make any further attempts to call a method of Janitor error.
 	:::
 ]=]
 function Janitor:Destroy()
-	self:Cleanup()
+	self:CleanUp()
 	table.clear(self)
 	setmetatable(self, nil)
 end
 
+Janitor.Cleanup = Janitor.CleanUp
 Janitor.__call = Janitor.Cleanup
 
 --[=[
-	"Links" this Janitor to an Instance, such that the Janitor will `Cleanup` when the Instance is `Destroyed()` and garbage collected.
+	"Links" this Janitor to an Instance, such that the Janitor will `CleanUp` when the Instance is `Destroyed()` and garbage collected.
 	A Janitor may only be linked to one instance at a time, unless `AllowMultiple` is true. When called with a truthy `AllowMultiple` parameter,
 	the Janitor will "link" the Instance without overwriting any previous links, and will also not be overwritable.
 	When called with a falsy `AllowMultiple` parameter, the Janitor will overwrite the previous link which was also called with a falsy `AllowMultiple` parameter, if applicable.
@@ -515,20 +516,20 @@ Janitor.__call = Janitor.Cleanup
 
 	@param Object Instance -- The instance you want to link the Janitor to.
 	@param AllowMultiple? boolean -- Whether or not to allow multiple links on the same Janitor.
-	@return RBXScriptConnection -- A RBXScriptConnection that can be disconnected to prevent the cleanup of LinkToInstance.
+	@return RBXScriptConnection -- A RBXScriptConnection that can be disconnected to prevent the CleanUp of LinkToInstance.
 ]=]
 function Janitor:LinkToInstance(Object: Instance, AllowMultiple: boolean?): RBXScriptConnection
 	local IndexToUse = AllowMultiple and newproxy(false) or LinkToInstanceIndex
 
 	return self:Add(Object.Destroying:Connect(function()
-		self:Cleanup()
+		self:CleanUp()
 	end), "Disconnect", IndexToUse)
 end
 
 --[=[
 	This is the legacy LinkToInstance function. It is kept for backwards compatibility in case something is different with `Instance.Destroying`.
 
-	"Links" this Janitor to an Instance, such that the Janitor will `Cleanup` when the Instance is `Destroyed()` and garbage collected.
+	"Links" this Janitor to an Instance, such that the Janitor will `CleanUp` when the Instance is `Destroyed()` and garbage collected.
 	A Janitor may only be linked to one instance at a time, unless `AllowMultiple` is true. When called with a truthy `AllowMultiple` parameter,
 	the Janitor will "link" the Instance without overwriting any previous links, and will also not be overwritable.
 	When called with a falsy `AllowMultiple` parameter, the Janitor will overwrite the previous link which was also called with a falsy `AllowMultiple` parameter, if applicable.
@@ -586,14 +587,14 @@ function Janitor:LegacyLinkToInstance(Object: Instance, AllowMultiple: boolean?)
 					if not ManualDisconnect.Connected then
 						return
 					elseif not Connection.Connected then
-						self:Cleanup()
+						self:CleanUp()
 					else
 						while IsNilParented and Connection.Connected and ManualDisconnect.Connected do
 							task.wait()
 						end
 
 						if ManualDisconnect.Connected and IsNilParented then
-							self:Cleanup()
+							self:CleanUp()
 						end
 					end
 				end)
@@ -619,12 +620,12 @@ end
 	@return Janitor -- A new Janitor that can be used to manually disconnect all LinkToInstances.
 ]=]
 function Janitor:LinkToInstances(...: Instance)
-	local ManualCleanup = Janitor.new()
+	local ManualCleanUp = Janitor.new()
 	for _, Object in ipairs({...}) do
-		ManualCleanup:Add(self:LinkToInstance(Object, true), "Disconnect")
+		ManualCleanUp:Add(self:LinkToInstance(Object, true), "Disconnect")
 	end
 
-	return ManualCleanup
+	return ManualCleanUp
 end
 
 function Janitor:__tostring()
