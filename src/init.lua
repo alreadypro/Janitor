@@ -395,8 +395,42 @@ end
 	@return any? -- This will return the object if it is found, but it won't return anything if it doesn't exist.
 ]=]
 function Janitor:Get(Index: any): any?
-	local This = self[IndicesReference]
-	return if This then This[Index] else nil
+	return self:GetAll()[Index]
+end
+
+--[=[
+	Gets all objects with their
+
+	### Luau:
+
+	```lua
+	local Obliterator = Janitor.new()
+
+	Obliterator:Add(function()
+		print("One")
+	end, true, "One")
+
+	Obliterator:Add(function()
+		print("Two")
+	end, true, "Two")
+
+	Obliterator:Add(function()
+		print("Three")
+	end, true, "Three")
+
+	for index, object in Obliterator:GetAll() do
+		print(index, object)
+	end
+
+	-- One function
+	-- Two function
+	-- Three function
+	```
+
+	@return any? -- This will return a dictionary of all objects with their key as the index
+]=]
+function Janitor:GetAll(): { any }
+	return self[IndicesReference] or {}
 end
 
 local function GetFenv(self)

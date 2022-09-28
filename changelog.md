@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 1.4.2 - 2022-09-28
 
+## Added
+
+- `GetAll` returns all objects added to the `Janitor`
+
 ## Changed
 
 - `Cleanup` has been renamed to `CleanUp` in order to be grammatically correct
@@ -52,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- `Janitor:AddPromise` now will handle cancellations properly.
+- `Janitor:AddPromise` will now handle cancellations properly.
 
 ## 1.13.13 - 2021-10-20
 
