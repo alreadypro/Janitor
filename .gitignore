@@ -47,3 +47,6 @@ Janitor.rbxmx
 
 build
 Garbage
+
+# Luau Language Server Sourcemap
+/sourcemap.json
