@@ -427,9 +427,9 @@ end
 	-- Three function
 	```
 
-	@return any? -- This will return a dictionary of all objects with their key as the index
+	@return { [any]: any } -- This will return a dictionary of all objects with their key as the index
 ]=]
-function Janitor:GetAll(): { any }
+function Janitor:GetAll(): { [any]: any }
 	return self[IndicesReference] or {}
 end
 
