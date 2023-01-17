@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[14],{63891:s=>{s.exports=JSON.parse('{"sourceUrl":"https://github.com/alreadypro/Janitor/blob/main","baseUrl":"/Janitor/","classOrder":["Janitor","RbxScriptConnection"],"apiCategories":["first","last"]}')}}]);
