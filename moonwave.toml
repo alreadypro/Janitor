@@ -2,11 +2,6 @@ classOrder = ["Janitor", "RbxScriptConnection"]
 changelog = true
 gitSourceBranch = "main"
 
-apiCategories = [
-    "first",
-    "last"
-]
-
 [docusaurus]
 tagline = "Garbage collector object implementation for Roblox"
 
