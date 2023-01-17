@@ -49,6 +49,7 @@ local TypeDefaults = {
 --[=[
 	Instantiates a new Janitor object.
 	@return Janitor
+	@tag first
 ]=]
 function Janitor.new()
 	return setmetatable({
@@ -501,6 +502,8 @@ end
 	:::warning
 	Running this will make any further attempts to call a method of Janitor error.
 	:::
+
+	@tag last
 ]=]
 function Janitor:Destroy()
 	self:CleanUp()
